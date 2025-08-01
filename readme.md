@@ -20,7 +20,7 @@ The **Apifant Transcription API** provides advanced audio transcription services
 
 ```bash
 curl -X POST \
-  'https://your-endpoint.apifant.com/api/transcribe/speech?mode=fulltext&source_lang=de&target_lang=de' \
+  'https://your-endpoint.apifant.com/api/transcribe/speech?mode=fulltext&source_lang=en&target_lang=en' \
   -H 'Authorization: Bearer YOUR_API_KEY' \
   -H 'Content-Type: audio/wav' \
   --data-binary '@your-audio-file.wav'
