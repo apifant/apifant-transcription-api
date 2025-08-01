@@ -54,7 +54,7 @@ curl -X POST \
 }
 ```
 
-## 📚 API Reference
+## API Reference
 
 ### Authentication
 
@@ -106,7 +106,7 @@ POST /api/transcribe/speech/webhook
 
 Real-time processing with results delivered to your webhook URL.
 
-## 🌍 Supported Languages
+## Supported Languages
 
 | Language | Code |
 |----------|------|
@@ -128,7 +128,7 @@ Real-time processing with results delivered to your webhook URL.
 | Turkish | `tr` |
 | Ukrainian | `uk` |
 
-## 🔧 Transcription Modes
+## Transcription Modes
 
 ### 📝 Full Text Mode
 
@@ -158,7 +158,7 @@ We provide official SDKs for popular programming languages:
 - **Java**: [apifant-transcription-sdk-java](https://github.com/apifant/apifant-transcription-sdk-java)
 - **Python**: [apifant-transcription-sdk-python](https://github.com/apifant/apifant-transcription-sdk-python) -->
 
-## 📊 Performance & Limits
+## Performance & Limits
 
 ### File Limits
 
@@ -171,7 +171,7 @@ We provide official SDKs for popular programming languages:
 - **Concurrent requests**: 10 per API key
 - **Daily quota**: Based on your subscription plan
 
-## 🔄 Webhook Integration
+## Webhook Integration
 
 For batch processing, configure webhooks to receive real-time updates:
 
@@ -195,12 +195,12 @@ For batch processing, configure webhooks to receive real-time updates:
 - **x-api-key**: Include your API key in the `X-API-Key` header
 - **bearer**: Use Bearer token authentication
 
-## 🔒 Security & Privacy
+## Security & Privacy
 
 - **🔐 Encrypted transmission**: All API calls use HTTPS
 - **🗑️ No data retention**: Audio files are deleted after processing
 
-## 📖 Code Examples
+## Code Examples
 
 ### JavaScript Example
 
@@ -237,7 +237,7 @@ curl -X POST \
   --data-binary '@technical-meeting.wav'
 ```
 
-## 🆘 Error Handling
+## Error Handling
 
 ### Common HTTP Status Codes
 
@@ -258,7 +258,7 @@ curl -X POST \
 }
 ```
 
-## 📈 Monitoring & Analytics
+## Monitoring & Analytics
 
 ### Health Check
 
@@ -272,7 +272,7 @@ GET /api/health
 GET /api/version
 ```
 
-## 🎯 Use Cases
+## Use Cases
 
 ### 📞 Call Center Analytics
 
