@@ -149,14 +149,14 @@ Real-time processing with results delivered to your webhook URL.
 - **Best For**: Conference calls, panel discussions
 - **Note**: Requires mono audio files
 
-## 🛠️ SDKs & Libraries
+<!-- ## 🛠️ SDKs & Libraries
 
 We provide official SDKs for popular programming languages:
 
 - **TypeScript/JavaScript**: [apifant-phone-sdk-typescript](https://github.com/apifant/apifant-phone-sdk-typescript)
 - **C#/.NET**: [apifant-transcription-sdk-csharp](https://github.com/apifant/apifant-transcription-sdk-csharp)
 - **Java**: [apifant-transcription-sdk-java](https://github.com/apifant/apifant-transcription-sdk-java)
-- **Python**: [apifant-transcription-sdk-python](https://github.com/apifant/apifant-transcription-sdk-python)
+- **Python**: [apifant-transcription-sdk-python](https://github.com/apifant/apifant-transcription-sdk-python) -->
 
 ## 📊 Performance & Limits
 
