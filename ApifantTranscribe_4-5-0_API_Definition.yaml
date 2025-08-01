@@ -1,0 +1,1446 @@
+openapi: 3.0.1
+info:
+  description: >-
+    ApifantTranscribe provides advanced audio transcription services with
+    multiple specialized transcription methods
+
+        - Full-text transcription for complete, accurate speech-to-text conversion
+        - Quick mode transcription optimized for speed and efficiency
+        - Grammar-based transcription for keyword spotting and structured pattern recognition
+        - Diarization transcription for multi-speaker audio with speaker separation
+
+        The API also offers model extension capabilities, allowing users to adapt and enhance grammar models by
+        - Adding custom vocabularies
+        - Expanding word lists for specific domains
+        - Optimizing models for specialized use cases
+
+        Perfect for applications requiring flexible speech recognition, from IVR systems to meeting transcriptions. Supports various audio formats (MP3, WAV) with a maximum file size of 300MB.
+  title: "ApifantTranscribe"
+  version: 4.5.7
+servers:
+  - url: https://your-endpoint.apifant.com
+security:
+  - bearerAuth: []
+paths:
+  /api/health:
+    parameters: []
+    get:
+      description: Returns the version of the api server.
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Success
+      parameters: []
+  /api/version:
+    parameters: []
+    get:
+      description: Returns the version of the api server.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    description: Schema Content
+                required:
+                  - version
+                description: Version response
+      parameters: []
+  /api/transcribe/speech:
+    parameters:
+      - in: query
+        required: false
+        example: fulltext
+        name: mode
+        description: Which mode to use
+        schema:
+          description: Which mode to use
+          type: string
+          enum:
+            - fulltext
+            - quick
+            - diarization
+            - quick-diarization
+      - in: query
+        required: false
+        example: apifant
+        name: model
+        description: Which model to use
+        schema:
+          description: Which model to use
+          type: string
+          enum:
+            - apifant
+      - in: query
+        required: false
+        example: "false"
+        name: format
+        description: Formats the response full text with timestamps and speaker id.
+        schema:
+          description: Formats the response full text with timestamps and speaker id.
+          type: string
+          enum:
+            - "true"
+            - "false"
+      - in: query
+        required: false
+        example: de
+        name: source_lang
+        description: |-
+          Source language. Supported Languages:
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |-
+            Source language. Supported Languages:
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: &a1
+            - auto
+            - en
+            - es
+            - fr
+            - de
+            - it
+            - pt
+            - nl
+            - ru
+            - zh
+            - ja
+            - ko
+            - ar
+            - pl
+            - ro
+            - cs
+            - tr
+            - uk
+            - en-US
+            - en-GB
+            - en-AU
+            - en-CA
+            - en-NZ
+            - en-IE
+            - en-ZA
+            - en-IN
+            - es-ES
+            - es-MX
+            - es-AR
+            - es-CO
+            - es-CL
+            - es-PE
+            - es-VE
+            - es-US
+            - fr-FR
+            - fr-CA
+            - fr-BE
+            - fr-CH
+            - fr-LU
+            - de-DE
+            - de-AT
+            - de-CH
+            - de-LU
+            - de-LI
+            - it-IT
+            - it-CH
+            - pt-PT
+            - pt-BR
+            - nl-NL
+            - nl-BE
+            - ru-RU
+            - zh-CN
+            - zh-TW
+            - zh-HK
+            - zh-SG
+            - ja-JP
+            - ko-KR
+            - ar-SA
+            - ar-AE
+            - ar-BH
+            - ar-DZ
+            - ar-EG
+            - ar-IQ
+            - ar-JO
+            - ar-KW
+            - ar-LB
+            - ar-LY
+            - ar-MA
+            - ar-OM
+            - ar-QA
+            - ar-TN
+            - ar-YE
+            - pl-PL
+            - ro-RO
+            - ro-MD
+            - cs-CZ
+            - tr-TR
+            - tr-CY
+            - uk-UA
+      - in: query
+        required: false
+        example: de
+        name: target_lang
+        description: |
+          Target language. Supported Languages:
+          - Automatic detection (auto)
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |
+            Target language. Supported Languages:
+            - Automatic detection (auto)
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: vodafone,magenta
+        name: custom_vocabularies
+        description:
+          Additional vocabulary seperated by , to make it more likely to
+          predict those word correctly
+        schema:
+          description:
+            Additional vocabulary seperated by , to make it more likely to
+            predict those word correctly
+          type: string
+      - in: query
+        required: false
+        example: "true"
+        name: no_word_timestamps
+        description:
+          Flag whether not word timestamps should be generated. This improves
+          performance
+        schema:
+          description:
+            Flag whether not word timestamps should be generated. This improves
+            performance
+          type: string
+    post:
+      description:
+        Transcribes a mono or stereo audio file . Returning found words,
+        sentences and the whole text
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema: &a2
+                type: object
+                properties:
+                  full_text:
+                    type: string
+                    description: Transcription
+                  words:
+                    type: array
+                    description: List of words with timestamps
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: object
+                          properties:
+                            start:
+                              type: number
+                              description: Beginn of the word
+                            end:
+                              type: number
+                              description: End of the word
+                          required:
+                            - start
+                            - end
+                          description: Timestamps for the found word
+                        text:
+                          type: string
+                          description: Word found
+                        speaker:
+                          type: string
+                          description: Speaker assigned
+                      required:
+                        - timestamp
+                        - text
+                        - speaker
+                      description: word
+                  sentences:
+                    type: array
+                    description: List of sentences with timestamps
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: object
+                          properties:
+                            start:
+                              type: number
+                              description: Beginn of the sentence
+                            end:
+                              type: number
+                              description: End of the sentence
+                          required:
+                            - start
+                            - end
+                          description: Timestamps for the found sentence
+                        text:
+                          type: string
+                          description: Sentence found
+                        speaker:
+                          type: string
+                          description: Speaker assigned
+                      required:
+                        - timestamp
+                        - text
+                        - speaker
+                      description: word
+                  metrics:
+                    type: object
+                    properties:
+                      transcription_time:
+                        type: number
+                        description: Time the transcription took in s.
+                      audio_length:
+                        type: number
+                        description: Length of the send audio file in s.
+                      isStereo:
+                        type: boolean
+                        description: "Flag whether the file is mono or stereo "
+                    required:
+                      - transcription_time
+                      - audio_length
+                      - isStereo
+                    description: metrics
+                required:
+                  - full_text
+                  - words
+                  - sentences
+                description: Transcription Response Obejct
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+  /api/transcribe/speech/webhook:
+    parameters:
+      - in: query
+        required: false
+        example: fulltext
+        name: mode
+        description: Which mode to use
+        schema:
+          description: Which mode to use
+          type: string
+          enum:
+            - fulltext
+            - quick
+            - diarization
+            - quick-diarization
+      - in: query
+        required: false
+        example: "false"
+        name: model
+        description: Which model to use
+        schema:
+          description: Which model to use
+          type: string
+          enum:
+            - apifant
+      - in: query
+        required: false
+        example: "false"
+        name: format
+        description: Formats the response full text with timestamps and speaker id.
+        schema:
+          description: Formats the response full text with timestamps and speaker id.
+          type: string
+          enum:
+            - "true"
+            - "false"
+      - in: query
+        required: false
+        example: de
+        name: source_lang
+        description: |-
+          Source language. Supported Languages:
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |-
+            Source language. Supported Languages:
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: de
+        name: target_lang
+        description: |
+          Target language. Supported Languages:
+          - Automatic detection (auto)
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |
+            Target language. Supported Languages:
+            - Automatic detection (auto)
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: vodafone,magenta
+        name: custom_vocabularies
+        description:
+          Additional vocabulary seperated by , to make it more likely to
+          predict those word correctly
+        schema:
+          description:
+            Additional vocabulary seperated by , to make it more likely to
+            predict those word correctly
+          type: string
+      - in: query
+        required: true
+        example: http://localhost:3007
+        name: targeturl
+        description: ""
+        schema:
+          description: ""
+          type: string
+      - in: query
+        required: false
+        example: abcde
+        name: key
+        description: webhook token/key
+        schema:
+          description: webhook token/key
+          type: string
+      - in: query
+        required: false
+        example: ""
+        name: authtype
+        description: webhook auth type
+        schema:
+          description: webhook auth type
+          type: string
+          enum:
+            - x-api-key
+            - bearer
+      - in: query
+        required: false
+        example: ""
+        name: body
+        description: Extra Data to be send to the webhook as json body encoded
+        schema:
+          description: Extra Data to be send to the webhook as json body encoded
+          type: string
+      - in: query
+        required: false
+        example: ""
+        name: replacerkey
+        description:
+          Key for the value the transcription result should replace in the
+          extra data body for nested objects use a . like data.var.chunk
+        schema:
+          description:
+            Key for the value the transcription result should replace in the
+            extra data body for nested objects use a . like data.var.chunk
+          type: string
+      - in: query
+        required: false
+        example: "true"
+        name: no_word_timestamps
+        description:
+          Flag whether not word timestamps should be generated. This improves
+          performance
+        schema:
+          description:
+            Flag whether not word timestamps should be generated. This improves
+            performance
+          type: string
+    post:
+      description:
+        Transcribes a mono or stereo audio file and returns the result to
+        the webhook.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    description: Success Message
+                required:
+                  - msg
+                description: Success Message
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+  /api/transcribe/detect/language:
+    parameters: []
+    post:
+      description: Detects a spoken language.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  language:
+                    type: string
+                    description: Detected language
+                required:
+                  - language
+                description: Response
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+  /api/transcribe/grammar/direct/{model}/{words}:
+    parameters:
+      - in: path
+        required: true
+        example: default_german
+        name: model
+        description: Modelname
+        schema:
+          type: string
+          description: Modelname
+      - in: path
+        required: true
+        name: words
+        description:
+          Words you want to add to add as grammar. Words a sperated by a ;
+          and synonym can be added by |
+        schema:
+          type: string
+          description:
+            Words you want to add to add as grammar. Words a sperated by a ;
+            and synonym can be added by |
+    post:
+      description: Transcribes a mono audio file with grammar and returns the transcription.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grammarResult:
+                    type: array
+                    description: List of recognized Grammar patterns.
+                    items:
+                      type: object
+                      additionalProperties:
+                        oneOf:
+                          - type: string
+                            description: Recognized String
+                          - type: number
+                            description: Recognized Number.
+                      description: Grammar Result
+                  metrics:
+                    type: object
+                    properties:
+                      transcription_time:
+                        type: number
+                        description: Time the transcription took in s.
+                      audio_length:
+                        type: number
+                        description: Length of the send audio file in s.
+                    required:
+                      - transcription_time
+                      - audio_length
+                    description: metrics
+                required:
+                  - grammarResult
+                description: Grammar Response
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+
+  /api/batch/transcribe/retrieve/{transcription_id}:
+    parameters:
+      - in: path
+        required: true
+        example: "false"
+        name: transcription_id
+        description: Transcription id for batch retrieval.
+        schema:
+          type: string
+          description: Transcription id for batch retrieval.
+    get:
+      description: Method to retrieve batch transcription result
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  full_text:
+                    type: string
+                    description: Full text transcription
+                  words:
+                    type: array
+                    description: List of words with timestamps
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: object
+                          properties:
+                            start:
+                              type: number
+                              description: Beginn of the word
+                            end:
+                              type: number
+                              description: End of the word
+                          required:
+                            - start
+                            - end
+                          description: Timestamps for the found word
+                        text:
+                          type: string
+                          description: Word found
+                        speaker:
+                          type: string
+                          description: Speaker assigned
+                      required:
+                        - timestamp
+                        - text
+                        - speaker
+                      description: word
+                  sentences:
+                    type: array
+                    description: List of sentences with timestamps
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: object
+                          properties:
+                            start:
+                              type: number
+                              description: Beginn of the sentence
+                            end:
+                              type: number
+                              description: End of the sentence
+                          required:
+                            - start
+                            - end
+                          description: Timestamps for the found sentence
+                        text:
+                          type: string
+                          description: Sentence found
+                        speaker:
+                          type: string
+                          description: Speaker assigned
+                      required:
+                        - timestamp
+                        - text
+                        - speaker
+                      description: word
+                  metrics:
+                    type: object
+                    properties:
+                      transcription_time:
+                        type: number
+                        description: Time the transcription took in s.
+                      audio_length:
+                        type: number
+                        description: Length of the send audio file in s.
+                      isStereo:
+                        type: boolean
+                        description: "Flag whether the file is mono or stereo "
+                    required:
+                      - transcription_time
+                      - audio_length
+                      - isStereo
+                    description: metrics
+                required:
+                  - full_text
+                  - words
+                  - sentences
+                description: Timestamped Mono Response
+      parameters: []
+  /api/batch/transcribe/cancel/{transcription_id}:
+    parameters:
+      - in: path
+        required: true
+        example: "false"
+        name: transcription_id
+        description: Transcription id for batch retrieval.
+        schema:
+          type: string
+          description: Transcription id for batch retrieval.
+    get:
+      description: Method to cancel batch transcription
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    description: Success message
+                required:
+                  - msg
+                description: Message Object
+      parameters: []
+  /api/batch/transcribe/fulltext:
+    parameters:
+      - in: query
+        required: false
+        example: de
+        name: source_lang
+        description: |-
+          Source language. Supported Languages:
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |-
+            Source language. Supported Languages:
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: de
+        name: target_lang
+        description: |
+          Target language. Supported Languages:
+          - Automatic detection (auto)
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |
+            Target language. Supported Languages:
+            - Automatic detection (auto)
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: vodafone,magenta
+        name: custom_vocabularies
+        description:
+          Additional vocabulary seperated by , to make it more likely to
+          predict those word correctly
+        schema:
+          description:
+            Additional vocabulary seperated by , to make it more likely to
+            predict those word correctly
+          type: string
+      - in: query
+        required: false
+        example: http://localhost:3007
+        name: webhook
+        description: |-
+          Webhook {
+              transcription_id: string;
+              status: string;
+              timestamp: number;
+              result: {
+                  full_text: string;
+                  word_count: number;
+                  sentence_count: number;
+                  target_language: string;
+                  source_language: string;
+              };
+          }
+        schema:
+          description: |-
+            Webhook {
+                transcription_id: string;
+                status: string;
+                timestamp: number;
+                result: {
+                    full_text: string;
+                    word_count: number;
+                    sentence_count: number;
+                    target_language: string;
+                    source_language: string;
+                };
+            }
+          type: string
+      - in: query
+        required: false
+        example: abcde
+        name: token
+        description: webhook token/key
+        schema:
+          description: webhook token/key
+          type: string
+      - in: query
+        required: false
+        example: ""
+        name: authtype
+        description: webhook auth type
+        schema:
+          description: webhook auth type
+          type: string
+          enum:
+            - x-api-key
+            - bearer
+    post:
+      description:
+        Transcribes a mono or stereo audio file in batch mode. Returns a id
+        to later retrieve the transcrption.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transcription_id:
+                    type: string
+                    description: Transcription id for later retrieval.
+                required:
+                  - transcription_id
+                description: Transcription Response Obejct
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+  /api/batch/transcribe/zip:
+    parameters:
+      - in: query
+        required: false
+        example: de
+        name: source_lang
+        description: |-
+          Source language. Supported Languages:
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |-
+            Source language. Supported Languages:
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: de
+        name: target_lang
+        description: |
+          Target language. Supported Languages:
+          - Automatic detection (auto)
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |
+            Target language. Supported Languages:
+            - Automatic detection (auto)
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: vodafone,magenta
+        name: custom_vocabularies
+        description:
+          Additional vocabulary seperated by , to make it more likely to
+          predict those word correctly
+        schema:
+          description:
+            Additional vocabulary seperated by , to make it more likely to
+            predict those word correctly
+          type: string
+      - in: query
+        required: false
+        example: http://localhost:3007
+        name: webhook
+        description: |-
+          Webhook Response {
+              transcription_id: string;
+              status: string;
+              timestamp: number;
+              result: {
+                  full_text: string;
+                  word_count: number;
+                  sentence_count: number;
+                  target_language: string;
+                  source_language: string;
+              };
+          }
+        schema:
+          description: |-
+            Webhook Response {
+                transcription_id: string;
+                status: string;
+                timestamp: number;
+                result: {
+                    full_text: string;
+                    word_count: number;
+                    sentence_count: number;
+                    target_language: string;
+                    source_language: string;
+                };
+            }
+          type: string
+      - in: query
+        required: false
+        example: abcde
+        name: token
+        description: webhook token/key
+        schema:
+          description: webhook token/key
+          type: string
+      - in: query
+        required: false
+        example: ""
+        name: authtype
+        description: webhook auth type
+        schema:
+          description: webhook auth type
+          type: string
+          enum:
+            - x-api-key
+            - bearer
+      - in: query
+        required: false
+        example: fulltext
+        name: mode
+        description: Type of transcription for all files
+        schema:
+          description: Type of transcription for all files
+          type: string
+          enum:
+            - fulltext
+            - diarization
+    post:
+      description: Zip file containing the mp3 or wav files to be transcribed
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  files:
+                    type: array
+                    description: List of files in the zip and their retrieval id
+                    items:
+                      type: object
+                      properties:
+                        transcription_id:
+                          type: string
+                          description: Transcription id for later retrieval.
+                        file_name:
+                          type: string
+                          description: Name of the file.
+                      required:
+                        - transcription_id
+                        - file_name
+                      description: Item
+                required:
+                  - files
+                description: Transcription Response Obejct
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+  /api/batch/transcribe/mono/diarization:
+    parameters:
+      - in: query
+        required: false
+        example: de
+        name: source_lang
+        description: |-
+          Source language. Supported Languages:
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |-
+            Source language. Supported Languages:
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: de
+        name: target_lang
+        description: |
+          Target language. Supported Languages:
+          - Automatic detection (auto)
+          - Englisch (en)
+          - Spanisch (es)
+          - Französisch (fr)
+          - Deutsch (de)
+          - Italienisch (it)
+          - Portugiesisch (pt)
+          - Niederländisch (nl)
+          - Russisch (ru)
+          - Chinesisch (Vereinfacht) (zh)
+          - Japanisch (ja)
+          - Koreanisch (ko)
+          - Arabisch (ar)
+          - Polnisch (pl)
+          - Rumänisch (ro)
+          - Tschechisch (cs)
+          - Türkisch (tr)
+          - Ukrainisch (uk)
+        schema:
+          description: |
+            Target language. Supported Languages:
+            - Automatic detection (auto)
+            - Englisch (en)
+            - Spanisch (es)
+            - Französisch (fr)
+            - Deutsch (de)
+            - Italienisch (it)
+            - Portugiesisch (pt)
+            - Niederländisch (nl)
+            - Russisch (ru)
+            - Chinesisch (Vereinfacht) (zh)
+            - Japanisch (ja)
+            - Koreanisch (ko)
+            - Arabisch (ar)
+            - Polnisch (pl)
+            - Rumänisch (ro)
+            - Tschechisch (cs)
+            - Türkisch (tr)
+            - Ukrainisch (uk)
+          type: string
+          enum: *a1
+      - in: query
+        required: false
+        example: vodafone,magenta
+        name: custom_vocabularies
+        description:
+          Additional vocabulary seperated by , to make it more likely to
+          predict those word correctly
+        schema:
+          description:
+            Additional vocabulary seperated by , to make it more likely to
+            predict those word correctly
+          type: string
+      - in: query
+        required: false
+        example: http://localhost:3007
+        name: webhook
+        description: |-
+          Webhook {
+              transcription_id: string;
+              status: string;
+              timestamp: number;
+              result: {
+                  full_text: string;
+                  word_count: number;
+                  sentence_count: number;
+                  target_language: string;
+                  source_language: string;
+              };
+          }
+        schema:
+          description: |-
+            Webhook {
+                transcription_id: string;
+                status: string;
+                timestamp: number;
+                result: {
+                    full_text: string;
+                    word_count: number;
+                    sentence_count: number;
+                    target_language: string;
+                    source_language: string;
+                };
+            }
+          type: string
+      - in: query
+        required: false
+        example: abcde
+        name: token
+        description: webhook token/key
+        schema:
+          description: webhook token/key
+          type: string
+      - in: query
+        required: false
+        example: ""
+        name: authtype
+        description: webhook auth type
+        schema:
+          description: webhook auth type
+          type: string
+          enum:
+            - x-api-key
+            - bearer
+    post:
+      description:
+        Transcribes a mono audio file with speaker diarization in batch
+        mode. Returns a id to later retrieve the transcrption.
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transcription_id:
+                    type: string
+                    description: Transcription id for later retrieval.
+                required:
+                  - transcription_id
+                description: Transcription Response Obejct
+      parameters: []
+      requestBody:
+        description: Audio File
+        content:
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+
+components:
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http
