@@ -291,9 +291,8 @@ GET /api/version
 ## Support & Resources
 
 - **📧 Email**: [support@apifant.com](mailto:support@apifant.com)
-- **📚 Documentation**: [https://docs.apifant.com](https://docs.apifant.com)
 - **🐛 Bug Reports**: [GitHub Issues](https://github.com/apifant/apifant-transcription-api/issues)
 
 ## License
 
-This API is provided under the [Apifant Terms of Service](https://apifant.com/terms).
+This API is provided under the [Apifant Terms of Service](https://apifant.com/agb).
